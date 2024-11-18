@@ -65,8 +65,12 @@ next:
 taken:
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example where an instruction passes its result to the 2nd following instruction
+# Example where an instruction passes its result to the 2nd following instruction
 # There should be no stalls
+    add  t0, s0, s1 # t0 = s0 + s1 = 0 + 1 = 1
+    add  t1, s2, s3 # t1 = s2 + s3 = 2 + 3 = 5
+    add  t3, t0, s1 # t3 = t0 + s1 = 1 + 1 = 2
+
 # ----------------------------------------------------------------------------------------
     # nop instructions added between examples
     add  zero, zero, zero  
