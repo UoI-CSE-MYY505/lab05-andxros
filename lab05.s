@@ -65,7 +65,7 @@ next:
 taken:
 
 # ----------------------------------------------------------------------------------------
-# Example where an instruction passes its result to the 2nd following instruction
+# 1st Example: where an instruction passes its result to the 2nd following instruction
 # There should be no stalls
     add  t0, s0, s1 # t0 = s0 + s1 = 0 + 1 = 1
     add  t1, s2, s3 # t1 = s2 + s3 = 2 + 3 = 5
@@ -78,10 +78,14 @@ taken:
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with a double hazard and check that it works corretly.
+# 2nd Example: with a double hazard and check that it works corretly.
 # A double hazzard is when the source register of an instruction matches the destination
 #  registers of both of the two instructions preceeding it. It should get the newest value.
 # There should be no stalls
+    add  t0, s0, s1
+    add  t0, s2, s3
+    add  t1, t0, s1
+
 # ----------------------------------------------------------------------------------------
     # nop instructions added between examples
     add  zero, zero, zero  
@@ -89,8 +93,10 @@ taken:
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with a load stalling for 1 cycle to pass a value to a NOT-TAKEN branch 
+# 3rd Example: with a load stalling for 1 cycle to pass a value to a NOT-TAKEN branch 
 #  Is this a data hazard or a control hazard?
+    lw t0, 4(a0) # t0 = Mem[a0+4] = 10
+    beq t0, zero, exit 
 # ----------------------------------------------------------------------------------------
     # nop instructions added between examples
     add  zero, zero, zero  
@@ -98,7 +104,11 @@ taken:
     add  zero, zero, zero  
 
 # ----------------------------------------------------------------------------------------
-# TODO: Add an example with taken branch to a label which is immediately following the branch
+# 4th Example: with taken branch to a label which is immediately following the branch
+    beq  zero, zero, label 
+label:
+    add  t0, s0, s1
+    add  t1, s2, s3
 # ----------------------------------------------------------------------------------------
 
 
